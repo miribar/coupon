@@ -1,3 +1,5 @@
+package com.miri;
+
 public enum CouponType {
 
     RESTAURANTS,
