@@ -6,7 +6,12 @@
 	<groupId>com.miri</groupId>
 	<artifactId>coupon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>entities</module>
+		<module>dao</module>
+		<module>business_logic</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>coupon</name>
 	<description>Demo project for Spring Boot</description>
