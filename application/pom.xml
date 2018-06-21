@@ -10,6 +10,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>application</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miri</groupId>
+            <artifactId>entities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.miri</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>
