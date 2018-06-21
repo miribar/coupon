@@ -1,9 +1,6 @@
 package com.miri;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -15,7 +12,16 @@ public class Customer {
     Long id;
     String custName;
     String password;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "CUSTOMER_COUPON",
+            joinColumns = @JoinColumn(name = "CUST_ID"),         // this class
+            inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
+    )
     Collection<Coupon> coupons;
+
+    public Customer() {
+    }
 
     public Customer(String custName, String password, Collection<Coupon> coupons) {
         this.custName = custName;

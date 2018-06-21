@@ -22,6 +22,9 @@ public class Coupon {
     double price;
     String image;
 
+    public Coupon() {
+    }
+
     public Coupon(Long id, String title, Date startDate, Date endDate, int amount, CouponType type, String message, double price, String image) {
         this.id = id;
         this.title = title;
