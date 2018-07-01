@@ -2,9 +2,9 @@ package com.miri;
 
 public enum CouponType {
 
-    RESTAURANTS("r");
-//    ELECTICITY,
-//    FOOD,
+    RESTAURANTS("rest"),       //like public static final ... (constant def)
+    ELECTICITY("elec"),
+    FOOD("food");
 //    HEALTH,
 //    SPORTS,
 //    CAMPING,
@@ -13,7 +13,7 @@ public enum CouponType {
 
     private final String code;
 
-    CouponType(String code) {
+    CouponType(String code) {      //constructor is private, like for singleton
         this.code = code;
     }
 

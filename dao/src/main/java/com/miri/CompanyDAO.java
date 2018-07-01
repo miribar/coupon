@@ -1,14 +1,15 @@
 package com.miri;
 
-import com.miri.Company;
-import com.miri.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 import java.util.Collection;
 
-public interface CompanyDAO extends JpaRepository<Company, Long>{
+public interface CompanyDAO extends JpaRepository<Company, Long> {
 
-//    void createCompany(Company company);
+    default void createCompany(Company company){
+
+    }
 //    void removeCompany(Company company);
 //    void updateCompany(Company company);
 

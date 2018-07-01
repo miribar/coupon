@@ -8,13 +8,13 @@ import java.util.Collection;
 public class Company {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String compName;
     String password;
     String email;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "COMPANY_COUPON",
             joinColumns = @JoinColumn(name = "COMP_ID"),         // this class
             inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
