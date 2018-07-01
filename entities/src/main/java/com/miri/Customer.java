@@ -2,28 +2,31 @@ package com.miri;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Customer")
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String custName;
     String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CUSTOMER_COUPON",
             joinColumns = @JoinColumn(name = "CUST_ID"),         // this class
             inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
     )
-    Collection<Coupon> coupons;
+    //Collection<Coupon> coupons;                   //this is a general collection type
+    private Set<Coupon> coupons = new HashSet<>();  //this type of collection will not allow duplications
 
     public Customer() {
     }
 
-    public Customer(String custName, String password, Collection<Coupon> coupons) {
+    public Customer(String custName, String password, Set<Coupon> coupons) {
         this.custName = custName;
         this.password = password;
         this.coupons = coupons;
@@ -49,11 +52,11 @@ public class Customer {
         this.password = password;
     }
 
-    public Collection<Coupon> getCoupons() {
+    public Set<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(Collection<Coupon> coupons) {
+    public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
     }
 

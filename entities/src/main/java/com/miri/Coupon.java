@@ -1,21 +1,18 @@
 package com.miri;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Coupon")
 public class Coupon {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String title;
-    Date startDate;
-    Date endDate;
+    LocalDate startDate;
+    LocalDate endDate;
     int amount;
     CouponType type;
     String message;
@@ -25,7 +22,7 @@ public class Coupon {
     public Coupon() {
     }
 
-    public Coupon(Long id, String title, Date startDate, Date endDate, int amount, CouponType type, String message, double price, String image) {
+    public Coupon(Long id, String title, LocalDate startDate, LocalDate endDate, int amount, CouponType type, String message, double price, String image) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -49,19 +46,19 @@ public class Coupon {
         this.title = title;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
