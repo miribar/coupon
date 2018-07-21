@@ -1,10 +1,6 @@
 package com.miri;
 
-import com.miri.Company;
-import com.miri.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -15,11 +11,20 @@ public class CompanyFacade implements CouponClientFacade {
     @Autowired
     CompanyDAO companyDao;
 
+    @Autowired
+    CouponDAO couponDAO;
+
     public CompanyFacade() {
     }
 
-    public void createCoupon(Coupon coupon) {
-        companyDao.getCoupons();
+    Collection<Coupon> getCouponByType(CouponType type) {
+        return couponDAO.getCouponByType(type);
+    }
+
+    void createCoupon(Coupon coupon, Long comp_id) {
+        Company company = companyDao.getCompany(comp_id);
+        company.addCoupon(coupon);
+        companyDao.updateCompany(company);
     }
 
     public CouponClientFacade login(String name, String password) {

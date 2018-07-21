@@ -12,3 +12,6 @@ public class CouponApplication {
 		SpringApplication.run(CouponApplication.class, args);
 	}
 }
+
+//TODO: split controller into 3 controllers: admin, company, customer
+//TODO: convert Facades into classes

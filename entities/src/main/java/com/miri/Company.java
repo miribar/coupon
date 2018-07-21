@@ -9,17 +9,18 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String compName;
-    String password;
-    String email;
+    private Long id;
+    private String compName;
+    private String password;
+    private String email;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "COMPANY_COUPON",
+    @JoinTable(
+            name = "COMPANY_COUPON",
             joinColumns = @JoinColumn(name = "COMP_ID"),         // this class
             inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
     )
-    Collection<Coupon> coupons;
+    private Collection<Coupon> coupons;
 
     public Company() {
     }
@@ -36,7 +37,7 @@ public class Company {
         return id;
     }
 
-    public String getCompName() {
+    String getCompName() {
         return compName;
     }
 
@@ -66,6 +67,10 @@ public class Company {
 
     public void setCoupons(Collection<Coupon> coupons) {
         this.coupons = coupons;
+    }
+
+    void addCoupon(Coupon coupon) {
+        this.coupons.add(coupon);
     }
 
     @Override

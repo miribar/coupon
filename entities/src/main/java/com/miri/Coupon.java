@@ -1,5 +1,7 @@
 package com.miri;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -9,15 +11,17 @@ public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String title;
-    LocalDate startDate;
-    LocalDate endDate;
-    int amount;
-    CouponType type;
-    String message;
-    double price;
-    String image;
+    private Long id;
+    private String title;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int amount;
+    private CouponType type;
+    private String message;
+    private double price;
+    private String image;
 
     public Coupon() {
     }
