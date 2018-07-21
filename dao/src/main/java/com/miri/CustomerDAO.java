@@ -10,9 +10,14 @@ import java.util.Collection;
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Long> {
 
-//    void createCustomer(Customer customer);
+    default void createCustomer(Customer customer) {
+        this.save(customer);
+    }
 //    void removeCustomer(Customer customer);
-//    void updateCustomer(Customer customer);
+
+    default void updateCustomer(Customer customer) {
+        this.save(customer);
+    }
 
     @Query("select c from Customer c where c.id = ?1")
     Customer getCustomer(Long id);

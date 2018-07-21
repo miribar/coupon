@@ -7,18 +7,24 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public interface CustomerFacade {
+public class CustomerFacade implements CouponClientFacade {
 
     @Autowired
-    CustomerDAO customerDao = null;
+    CustomerDAO customerDao;
 
-    void createCustomer(Customer customer);
-    void removeCustomer(Customer customer);
-    void updateCustomer(Customer customer);
+    @Autowired
+    CouponDAO couponDAO;
 
-    Customer getCustomer(Long id);
-    Collection<Customer> getAllCustomers();
-    Collection<Coupon> getCoupons();
+    public CustomerFacade() {
+    }
 
-    boolean login(String custName, String password);
+    void purchaseCoupon(Long custId, Long couponId) {
+        Customer customer = customerDao.getCustomer(custId);
+        customer.addCoupon(couponDAO.getCoupon(couponId));
+        customerDao.updateCustomer(customer);
+    }
+
+    public CouponClientFacade login(String name, String password) {
+        return null;
+    }
 }

@@ -11,9 +11,9 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String custName;
-    String password;
+    private Long id;
+    private String custName;
+    private String password;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CUSTOMER_COUPON",
@@ -58,6 +58,10 @@ public class Customer {
 
     public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
+    }
+
+    void addCoupon(Coupon coupon) {
+        this.coupons.add(coupon);
     }
 
     @Override

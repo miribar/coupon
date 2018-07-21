@@ -2,14 +2,15 @@ package com.miri;
 
 public enum CouponType {
 
-    RESTAURANTS("rest"),       //like public static final ... (constant def)
+    //like public static final ... (constant def)
+    RESTAURANTS("rest"),
     ELECTICITY("elec"),
-    FOOD("food");
-//    HEALTH,
-//    SPORTS,
-//    CAMPING,
-//    TRAVELING,
-//    FASION;
+    FOOD("food"),
+    HEALTH("hlth"),
+    SPORTS("sprt"),
+    CAMPING("camp"),
+    TRAVELING("trvl"),
+    FASHION("fshn");
 
     private final String code;
 
