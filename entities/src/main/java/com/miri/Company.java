@@ -2,6 +2,7 @@ package com.miri;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "Company")
@@ -20,12 +21,12 @@ public class Company {
             joinColumns = @JoinColumn(name = "COMP_ID"),         // this class
             inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
     )
-    private Collection<Coupon> coupons;
+    private Set<Coupon> coupons;
 
     public Company() {
     }
 
-    public Company(Long id, String compName, String password, String email, Collection<Coupon> coupons) {
+    public Company(Long id, String compName, String password, String email, Set<Coupon> coupons) {
         this.id = id;
         this.compName = compName;
         this.password = password;
@@ -61,17 +62,14 @@ public class Company {
         this.email = email;
     }
 
-    public Collection<Coupon> getCoupons() {
+    public Set<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(Collection<Coupon> coupons) {
+    public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
     }
 
-    void addCoupon(Coupon coupon) {
-        this.coupons.add(coupon);
-    }
 
     @Override
     public String toString() {

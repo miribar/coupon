@@ -25,6 +25,9 @@ public class GeneralResponse {
             else if (message.contains("Column 'comp_name' cannot be null")) {
                 this.error = "Null value not allowed for company name!";
             }
+            else if (message.contains("title_UNIQUE")) {
+                this.error = "Duplicate coupon title!";
+            }
             else {
                 this.error = "Unhandled error occurred!";
             }

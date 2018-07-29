@@ -10,28 +10,42 @@ import java.util.Collection;
 public class CompanyController {
 
     @Autowired
-    private CustomerFacade customerServices;
-
-    @Autowired
     private CompanyFacade companyService;
-
-    @Autowired
-    private AdminFacade adminService;
 
     @Autowired
     private CouponTypeConverter couponTypeConverter;
 
-    //==  Coupon endpoints  ==//
 
-    @GetMapping("/getcouponbytype/{type}")
-    public Collection<Coupon> getCouponByType(@PathVariable("type") String type) {
+    @GetMapping("/getallcoupons")
+    public Collection<Coupon> getAllCouponse() {
+        return companyService.getAllCoupons();
+    }
+
+    @GetMapping("/getcouponsbytype/{comp_id}/{type}")
+    public GeneralResponse getCouponsByType(@PathVariable("comp_id") Long comp_id, @PathVariable("type") String type) {
         CouponType couponType=couponTypeConverter.convertToEntityAttribute(type);
-        return companyService.getCouponByType(couponType);
+        try {
+            return new GeneralResponse(companyService.getCouponsByType(comp_id, couponType));
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
     }
 
     @PostMapping("/createcoupon/{comp_id}")
-    public void createCoupon(@RequestBody Coupon coupon, @PathVariable("comp_id") Long comp_id) {
-        companyService.createCoupon(coupon, comp_id);
+    public GeneralResponse createCoupon(@RequestBody Coupon coupon, @PathVariable("comp_id") Long comp_id) {
+        try {
+            companyService.createCoupon(coupon, comp_id);
+            return new GeneralResponse("Coupon added successfully!");
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
+
+    }
+
+    @DeleteMapping("/deletecoupon/{comp_id}/{coupon_id}")
+    public void deleteCoupon(@PathVariable("comp_id") Long comp_id, @PathVariable("coupon_id") Long coupon_id) {
+        companyService.removeCoupon(comp_id, coupon_id);
     }
 
 }
+

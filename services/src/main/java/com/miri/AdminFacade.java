@@ -19,25 +19,16 @@ public class AdminFacade implements CouponClientFacade {
     }
 
     void createCompany(Company company) throws ConstraintViolationException {
-            companyDAO.createCompany(company);
+        companyDAO.createCompany(company);
     }
 
     void updateCompany(Company company) {
         companyDAO.updateCompany(company);
     }
 
-    void removeCompany(Company company) {
-        System.out.println("Company name is: " + company.getCompName());
-        Collection<Coupon> companyCoupons = companyDAO.getCoupons();
-        for (Coupon coupon : companyCoupons) {
-            System.out.println(coupon.toString());
-        }
-        Collection<Coupon> customersCoupons = customerDAO.getCoupons();
-        for (Coupon coupon : customersCoupons) {
-            System.out.println(coupon.toString());
-        }
+//    void removeCompany(Company company) {
 //        companyDAO.delete(company);
-    }
+//    }
 
     Company getCompany(Long id) {
         return companyDAO.getCompany(id);
@@ -45,6 +36,15 @@ public class AdminFacade implements CouponClientFacade {
 
     Collection<Company> getAllCompanies() {
         return companyDAO.getAllCompanies();
+    }
+
+    Collection<Customer> getAllCustomers() {
+        return customerDAO.getAllCustomers();
+    }
+
+    public void createCustomer(Customer customer) {
+        customerDAO.createCustomer(customer);
+
     }
 
     public CouponClientFacade login(String name, String password) {
