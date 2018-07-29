@@ -21,19 +21,17 @@ public class AdminController {
     @Autowired
     private CouponTypeConverter couponTypeConverter;
 
-    //==  Customer endpoints  ==//
 
 //    @GetMapping("/getcustomer/{id}")
 //    public Customer getCustomer(@PathVariable("id") Long id) {
 //        return customerServices.getCustomer(id);
 //    }
-//
-//    @GetMapping("/getallcustomers")
-//    public Collection<Customer> getCustomer() {
-//        return customerServices.getAllCustomers();
-//    }
 
-    //==  Admin service endpoints  ==//
+    @GetMapping("/getallcustomers")
+    public Collection<Customer> getCustomer() {
+        return adminService.getAllCustomers();
+    }
+
 
     @PutMapping("/createcompany")
     public GeneralResponse createCompany(@RequestBody Company company) {
@@ -46,10 +44,10 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping("/deletecompany/{id}")
-    public void removeCompany(@PathVariable("id") Long id) {
-        adminService.removeCompany(adminService.getCompany(id));
-    }
+//    @DeleteMapping("/deletecompany/{id}")
+//    public void removeCompany(@PathVariable("id") Long id) {
+//        adminService.removeCompany(adminService.getCompany(id));
+//    }
 
     @PostMapping("/updatecompany")
     public void updateCompany(@RequestBody Company company) {
@@ -66,6 +64,9 @@ public class AdminController {
         return adminService.getAllCompanies();
     }
 
-
+    @PostMapping("/createcustomer")
+    public void createCustomer(@RequestBody Customer customer) {
+        adminService.createCustomer(customer);
+    }
 
 }

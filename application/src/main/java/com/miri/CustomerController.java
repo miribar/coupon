@@ -10,17 +10,13 @@ public class CustomerController {
     @Autowired
     private CustomerFacade customerServices;
 
-    @Autowired
-    private CompanyFacade companyService;
-
-    @Autowired
-    private AdminFacade adminService;
-
-    @Autowired
-    private CouponTypeConverter couponTypeConverter;
-
     @PostMapping("/purchasecoupon/{cust_id}/{coupon_id}")
-    public void purchaseCoupon(@PathVariable("cust_id") Long custId, @PathVariable("coupon_Id") Long couponId) {
-        customerServices.purchaseCoupon(custId, couponId);
+    public GeneralResponse purchaseCoupon(@PathVariable("cust_id") Long custId, @PathVariable("coupon_id") Long couponId) {
+        try {
+            return customerServices.purchaseCoupon(custId, couponId);
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
+
     }
 }

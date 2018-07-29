@@ -15,7 +15,7 @@ public class Customer {
     private String custName;
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CUSTOMER_COUPON",
             joinColumns = @JoinColumn(name = "CUST_ID"),         // this class
             inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
