@@ -3,6 +3,7 @@ package com.miri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 @RestController                               //For serving REST requests, all responses default format is JSON
@@ -26,6 +27,28 @@ public class CompanyController {
         CouponType couponType=couponTypeConverter.convertToEntityAttribute(type);
         try {
             return new GeneralResponse(companyService.getCouponsByType(comp_id, couponType));
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
+    }
+
+    @GetMapping("/getcouponsbyprice/{comp_id}/{price}")
+    public GeneralResponse getCouponsByPriceLimit(
+            @PathVariable("comp_id") Long comp_id,
+            @PathVariable("price") Double price) {
+        try {
+            return new GeneralResponse(companyService.getCouponsByPriceLimit(comp_id, price));
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
+    }
+
+    @GetMapping("/getcouponsbydatelimit/{comp_id}/{enddate}")
+    public GeneralResponse getCouponsByType(
+            @PathVariable("comp_id") Long comp_id,
+            @PathVariable("enddate") LocalDate end_date) {
+        try {
+            return new GeneralResponse(companyService.getCouponsByDateLimit(comp_id, end_date));
         } catch (Exception e) {
             return new GeneralResponse(e);
         }
