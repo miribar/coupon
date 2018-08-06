@@ -11,15 +11,6 @@ import java.util.Set;
 @Repository
 public interface CompanyDAO extends JpaRepository<Company, Long> {
 
-    default void createCompany(Company company) throws ConstraintViolationException {
-        this.save(company);
-    }
-//    void removeCompany(Company company);
-
-    default void updateCompany(Company company) {
-        this.save(company);
-    }
-
     @Query("select c from Company c where c.id = ?1")
     Company getCompany(Long id);
 
@@ -28,6 +19,17 @@ public interface CompanyDAO extends JpaRepository<Company, Long> {
 
     @Query("select c.coupons from Company c where c.id = ?1")
     Set<Coupon> getCoupons(Long comp_id);
+
+    default void createCompany(Company company) throws ConstraintViolationException {
+        this.save(company);
+    }
+
+//    void removeCompany(Company company);
+    //also remove all company coupons and purchased coupons
+
+    default void updateCompany(Company company) {
+        this.save(company);
+    }
 
     default void createCoupon(Long comp_id, Coupon coupon) {
         Company company = this.getCompany(comp_id);
@@ -52,5 +54,4 @@ public interface CompanyDAO extends JpaRepository<Company, Long> {
 //    boolean login(String compName, String password);
 }
 
-//TODO: removeCompany also from DB
-//TODO: revise getCoupons to return coupons for company_id
+//TODO: convert Set<Coupon> to Hashmap

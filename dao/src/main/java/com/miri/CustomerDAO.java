@@ -4,20 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Long> {
-
-    default void createCustomer(Customer customer) {
-        this.save(customer);
-    }
-
-//    void removeCustomer(Customer customer);
-
-    default void updateCustomer(Customer customer) {
-        this.save(customer);
-    }
 
     @Query("select c from Customer c where c.id = ?1")
     Customer getCustomer(Long id);
@@ -25,8 +17,19 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
     @Query("select c from Customer c")
     Collection<Customer> getAllCustomers();
 
-    @Query("select c from Coupon c")
-    Collection<Coupon> getCoupons();
+
+    default void createCustomer(Customer customer) {
+        this.save(customer);
+    }
+
+    default void removeCustomer(Long cust_id) {
+        this.deleteById(cust_id);
+    }
+    //also remove coupon purchase history for that customer
+
+    default void updateCustomer(Customer customer) {
+        this.save(customer);
+    }
 
     default void removeCoupon(Long coupon_id) {
         Collection<Customer> allCustomers = this.getAllCustomers();
@@ -43,8 +46,17 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
         }
     }
 
+    @Query("select c.coupons from Customer c WHERE c.id = ?1")
+    Set<Coupon> getAllPurchasedCoupons(Long cust_id);
+
+    default void addCoupon(Customer customer, Coupon coupon) {
+        Collection<Coupon> customerCoupons = customer.getCoupons();
+        customerCoupons.add(coupon);
+        this.save(customer);
+    }
+
 //    boolean login(String custName, String password);
 }
 
-//TODO: removeCustomer (with coupons history) - where is history saved?
+//TODO: removeCustomer (with coupons history)
 //TODO: revise getCoupons to return coupons for customer_id

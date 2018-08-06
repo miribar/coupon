@@ -29,7 +29,7 @@ public class GeneralResponse {
                 this.error = "Duplicate coupon title!";
             }
             else {
-                this.error = "Unhandled error occurred!";
+                this.error = message;
             }
         }
     }

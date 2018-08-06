@@ -23,7 +23,12 @@ public class CompanyFacade implements CouponClientFacade {
     @Autowired
     CouponDAO couponDAO;
 
+
     public CompanyFacade() {
+    }
+
+    Coupon getCoupon(Long coupon_id) {
+        return couponDAO.getCoupon(coupon_id);
     }
 
     Collection<Coupon> getAllCoupons() {
@@ -37,13 +42,17 @@ public class CompanyFacade implements CouponClientFacade {
                     .collect(Collectors.toCollection(LinkedList::new));
     }
 
-//    Collection<Coupon> getCouponsByPriceLimit(int price) {
-//        return couponDAO.getCouponByPriceLimit(price);
-//    }
+    Collection<Coupon> getCouponsByPriceLimit(Long comp_id, Double price) throws RuntimeException {
+        Collection<Coupon> companyCoupons = companyDAO.getCoupons(comp_id);
+        return companyCoupons.stream().filter(coupon -> coupon.getPrice() <= price)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
-//    Collection<Coupon> getCouponsByDateLimit(LocalDate date) {
-//        return couponDAO.getCouponByDateLimit(date);
-//    }
+    Collection<Coupon> getCouponsByDateLimit(Long comp_id, LocalDate endDate) throws RuntimeException {
+        Collection<Coupon> companyCoupons = companyDAO.getCoupons(comp_id);
+        return companyCoupons.stream().filter(coupon -> coupon.getEndDate().isBefore(endDate))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     void createCoupon(Coupon coupon, Long comp_id) throws ConstraintViolationException {
         companyDAO.createCoupon(comp_id, coupon);
@@ -55,7 +64,11 @@ public class CompanyFacade implements CouponClientFacade {
         couponDAO.removeCoupon(coupon_id);
     }
 
-    public CouponClientFacade login(String name, String password) {
+    void updateCoupon(Coupon coupon) {
+        couponDAO.updateCoupon(coupon);
+    }
+
+    public CouponClientFacade login(String name, String password, String clientType) {
         return null;
     }
 }

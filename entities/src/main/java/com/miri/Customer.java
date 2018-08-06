@@ -17,11 +17,10 @@ public class Customer {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CUSTOMER_COUPON",
-            joinColumns = @JoinColumn(name = "CUST_ID"),         // this class
-            inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
+            joinColumns = @JoinColumn(name = "CUST_ID"),
+            inverseJoinColumns = @JoinColumn(name = "COUPON_ID")
     )
-    //Collection<Coupon> coupons;                   //this is a general collection type
-    private Set<Coupon> coupons = new HashSet<>();  //this type of collection will not allow duplications
+    private Set<Coupon> coupons = new HashSet<>();
 
     public Customer() {
     }
@@ -58,10 +57,6 @@ public class Customer {
 
     public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
-    }
-
-    void addCoupon(Coupon coupon) {
-        this.coupons.add(coupon);
     }
 
     @Override

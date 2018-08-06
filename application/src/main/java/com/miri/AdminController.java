@@ -2,8 +2,11 @@ package com.miri;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
+
+/**
+ * test
+ */
 
 @RestController                               //For serving REST requests, all responses default format is JSON
 @RequestMapping("/rest/api/")  		          //this creates the services main API endpoint
@@ -22,16 +25,19 @@ public class AdminController {
     private CouponTypeConverter couponTypeConverter;
 
 
-//    @GetMapping("/getcustomer/{id}")
-//    public Customer getCustomer(@PathVariable("id") Long id) {
-//        return customerServices.getCustomer(id);
-//    }
+    @GetMapping("/getcustomer/{id}")
+    public Customer getCustomer(@PathVariable("id") Long id) {
+        return adminService.getCustomer(id);
+    }
 
+    /**
+     *
+     * @return Collection of customers
+     */
     @GetMapping("/getallcustomers")
     public Collection<Customer> getCustomer() {
         return adminService.getAllCustomers();
     }
-
 
     @PutMapping("/createcompany")
     public GeneralResponse createCompany(@RequestBody Company company) {
@@ -44,10 +50,15 @@ public class AdminController {
         }
     }
 
-//    @DeleteMapping("/deletecompany/{id}")
-//    public void removeCompany(@PathVariable("id") Long id) {
-//        adminService.removeCompany(adminService.getCompany(id));
-//    }
+    @DeleteMapping("/deletecompany/{id}")
+    public void removeCompany(@PathVariable("id") Long id) {
+        adminService.removeCompany(adminService.getCompany(id));
+    }
+
+    @DeleteMapping("/deletecustomer/{cust_id}")
+    public void removeCustomer(@PathVariable("cust_id") Long cust_id) {
+        adminService.removeCustomer(cust_id);
+    }
 
     @PostMapping("/updatecompany")
     public void updateCompany(@RequestBody Company company) {
