@@ -1,6 +1,9 @@
 package com.miri;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
@@ -71,8 +74,15 @@ public class AdminController {
     }
 
     @GetMapping("/getallcompanies")
-    public Collection<Company> getAllCompanies() {
-        return adminService.getAllCompanies();
+    public ResponseEntity<Collection<Company>> getAllCompanies() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin","*");
+        
+        return ResponseEntity.ok()
+          .headers(responseHeaders)
+          .body(adminService.getAllCompanies());
+
+       // return adminService.getAllCompanies();
     }
 
     @PostMapping("/createcustomer")
