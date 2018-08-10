@@ -18,7 +18,6 @@ public class CustomerFacade implements CouponClientFacade {
     @Autowired
     CouponDAO couponDAO;
 
-
     public CustomerFacade() {
     }
 
