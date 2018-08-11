@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * test
  */
-
+@CrossOrigin //(origins = "http://domain2.com", maxAge = 3600)
 @RestController                               //For serving REST requests, all responses default format is JSON
 @RequestMapping("/rest/api/")  		          //this creates the services main API endpoint
 public class AdminController {
@@ -71,8 +71,12 @@ public class AdminController {
     }
 
     @GetMapping("/getallcompanies")
-    public Collection<Company> getAllCompanies() {
-        return adminService.getAllCompanies();
+    public GeneralResponse getAllCompanies() {
+        try {
+            return new GeneralResponse(adminService.getAllCompanies());
+        } catch (Exception e) {
+            return new GeneralResponse(e);
+        }
     }
 
     @PostMapping("/createcustomer")
