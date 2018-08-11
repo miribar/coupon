@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Collection;
 
+@CrossOrigin //(origins = "http://domain2.com", maxAge = 3600)
 @RestController                               //For serving REST requests, all responses default format is JSON
 @RequestMapping("/rest/api/")  		          //this creates the services main API endpoint
 public class CompanyController {

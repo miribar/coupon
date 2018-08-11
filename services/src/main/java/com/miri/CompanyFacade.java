@@ -23,7 +23,6 @@ public class CompanyFacade implements CouponClientFacade {
     @Autowired
     CouponDAO couponDAO;
 
-
     public CompanyFacade() {
     }
 
@@ -71,5 +70,6 @@ public class CompanyFacade implements CouponClientFacade {
     public CouponClientFacade login(String name, String password, String clientType) {
         return null;
     }
+
 }
 

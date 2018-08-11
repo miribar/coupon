@@ -1,32 +1,30 @@
 package com.miri;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "Company")
+@Table(name = "company" ,uniqueConstraints = {@UniqueConstraint(columnNames = {"compName"})} )
 public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String compName;
     private String password;
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "COMPANY_COUPON",
-            joinColumns = @JoinColumn(name = "COMP_ID"),         // this class
-            inverseJoinColumns = @JoinColumn(name = "COUPON_ID") // the other class
+    @JoinTable(name = "company_coupon", joinColumns = @JoinColumn(name = "comp_id"), // this class
+            inverseJoinColumns = @JoinColumn(name = "coupon_id") // the other class
     )
     private Set<Coupon> coupons;
 
     public Company() {
     }
 
-    public Company(Long id, String compName, String password, String email, Set<Coupon> coupons) {
+    public Company(Long id, String compName, String password, String email,Set<Coupon> coupons) {
         this.id = id;
         this.compName = compName;
         this.password = password;
@@ -38,7 +36,7 @@ public class Company {
         return id;
     }
 
-    String getCompName() {
+    public String getCompName() {
         return compName;
     }
 
@@ -62,23 +60,22 @@ public class Company {
         this.email = email;
     }
 
-    public Set<Coupon> getCoupons() {
+    Set<Coupon> getCoupons() {
         return coupons;
     }
 
-    public void setCoupons(Set<Coupon> coupons) {
+    void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
     }
-
 
     @Override
     public String toString() {
         return "Company{" +
                 "id=" + id +
                 ", compName='" + compName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", coupons=" + coupons +
-                '}';
+                ", password='" + password + '\''
+                + ", email='" + email + '\'' +
+                ", coupons=" + coupons + '}';
     }
+
 }

@@ -21,7 +21,6 @@ public class AdminFacade implements CouponClientFacade {
     @Autowired
     CouponDAO couponDAO;
 
-
     public AdminFacade() {
     }
 
