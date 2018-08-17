@@ -1,16 +1,25 @@
 package com.miri;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
 @Service
 public class AdminFacade implements CouponClientFacade {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CouponSystem.class);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Autowired
     CompanyDAO companyDAO;
@@ -62,26 +71,53 @@ public class AdminFacade implements CouponClientFacade {
         return customerDAO.getCustomer(cust_id);
     }
 
-    Collection<Customer> getAllCustomers() {
+    Set<Customer> getAllCustomers() {
         return customerDAO.getAllCustomers();
     }
 
     void createCustomer(Customer customer) {
         customerDAO.createCustomer(customer);
-
     }
 
     void updateCustomer(Customer customer) {
         customerDAO.updateCustomer(customer);
-
     }
 
     void removeCustomer(Long cust_id) {
         customerDAO.removeCustomer(cust_id);
-        // REMOVE ALL RELATED COUPONS
+    }
+
+    Set<Coupon> findByEndDateBefore(LocalDate currDate) {
+        return couponDAO.findByendDateBefore(currDate);
+    }
+
+    void deleteExpiredCoupons(Set<Coupon> expiredCoupons) {
+        couponDAO.deleteExpiredCoupons(expiredCoupons);
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void dailyCouponExpirationTask() {
+        LOGGER.info("Cron Task :: Execution Time - {}", DATE_TIME_FORMATTER.format(LocalDateTime.now()));
+        LocalDate today = LocalDate.now();
+
+        Set<Coupon> expiredCoupons = couponDAO.findByendDateBefore(today);
+        Set<Customer> allCustomers = customerDAO.getAllCustomers();
+        for (Coupon coupon : expiredCoupons) {
+            for (Customer customer : allCustomers) {
+                Set<Coupon> currCustomerCoupons = customer.getCoupons();
+                for (Coupon currCoupon : currCustomerCoupons) {
+                    if (Objects.equals(currCoupon.getId(), coupon.getId())) {
+                        currCustomerCoupons.remove(currCoupon);
+                    }
+                }
+                customerDAO.save(customer);
+            }
+        }
+        couponDAO.deleteExpiredCoupons(expiredCoupons);
     }
 
     public CouponClientFacade login(String name, String password, String clientType) {
         return null;
     }
+
 }
