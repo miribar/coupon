@@ -3,10 +3,7 @@ package com.miri;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 public interface CustomerDAO extends JpaRepository<Customer, Long> {
@@ -15,7 +12,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
     Customer getCustomer(Long id);
 
     @Query("select c from Customer c")
-    Collection<Customer> getAllCustomers();
+    Set<Customer> getAllCustomers();
 
 
     default void createCustomer(Customer customer) {
@@ -32,7 +29,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
     }
 
     default void removeCoupon(Long coupon_id) {
-        Collection<Customer> allCustomers = this.getAllCustomers();
+        Set<Customer> allCustomers = this.getAllCustomers();
         for (Customer customer:allCustomers) {
             Set<Coupon> customerCoupons = customer.getCoupons();
             for (Coupon coupon:customerCoupons) {
@@ -50,7 +47,7 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
     Set<Coupon> getAllPurchasedCoupons(Long cust_id);
 
     default void addCoupon(Customer customer, Coupon coupon) {
-        Collection<Coupon> customerCoupons = customer.getCoupons();
+        Set<Coupon> customerCoupons = customer.getCoupons();
         customerCoupons.add(coupon);
         this.save(customer);
     }

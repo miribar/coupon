@@ -16,9 +16,11 @@ public class Company {
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "company_coupon", joinColumns = @JoinColumn(name = "comp_id"), // this class
+    @JoinTable(name = "company_coupon",
+            joinColumns = @JoinColumn(name = "comp_id"), // this class
             inverseJoinColumns = @JoinColumn(name = "coupon_id") // the other class
     )
+
     private Set<Coupon> coupons;
 
     public Company() {
@@ -70,12 +72,8 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", compName='" + compName + '\'' +
-                ", password='" + password + '\''
-                + ", email='" + email + '\'' +
-                ", coupons=" + coupons + '}';
+        return "Company{" + "id=" + id + ", compName='" + compName + '\'' + ", password='" + password + '\''
+                + ", email='" + email + '\'' + ", coupons=" + coupons + '}';
     }
 
 }

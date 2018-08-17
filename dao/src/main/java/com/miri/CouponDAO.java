@@ -1,10 +1,12 @@
 package com.miri;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Repository
@@ -23,11 +25,17 @@ public interface CouponDAO extends JpaRepository<Coupon, Long>{
     Coupon getCoupon(Long id);
 
     @Query("select c from Coupon c")
-    Collection<Coupon> getAllCoupons();
+    Set<Coupon> getAllCoupons();
 
     @Query("select c from Coupon c where c.type = :type")
-    Collection<Coupon> getCouponByType(CouponType type);
+    Set<Coupon> getCouponByType(CouponType type);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    Set<Coupon> findByendDateBefore(LocalDate currDate);
+
+    default void deleteExpiredCoupons(Set<Coupon> expiredCoupons) {
+        this.deleteInBatch(expiredCoupons);
+    }
 
 }
-
-//TODO: removeCoupon, also purchased by customers
