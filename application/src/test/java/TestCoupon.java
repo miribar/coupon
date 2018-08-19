@@ -11,17 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.Random;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.assertNotNull;
 
 /**
  *
  */
-@FixMethodOrder(MethodSorters.DEFAULT)
 @RunWith(SpringRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @SpringBootTest(classes = CouponApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestCoupon {
 
@@ -39,12 +37,12 @@ public class TestCoupon {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testContextLoads() throws Exception {
+    public void a_testContextLoads() throws Exception {
         assertNotNull(adminController);
     }
 
     @Test
-    public void testAddNewCompany() throws Exception {
+    public void b_testAddNewCompany() throws Exception {
 
         newCompany.setCompName("company_" + generateRandomExtention(randomStr));
         newCompany.setEmail("test_" + generateRandomExtention(randomStr) + "@email.com");
@@ -58,26 +56,7 @@ public class TestCoupon {
     }
 
     @Test
-    public void testGetCompanyById() throws Exception {
-        assertThat(this.restTemplate.getForObject(
-                "http://localhost:" + port + "/rest/api/" + "getcompany/" + newCompany.getId(),
-                String.class))
-                .contains(newCompany.getCompName());
-    }
-
-    //@Test
-    //TODO: add testUpdateCompany()
-
-    @Test
-    public void testGetAllCompanies() throws Exception {
-        assertThat(this.restTemplate.getForObject(
-                "http://localhost:" + port + "/rest/api/" + "getallcompanies",
-                String.class))
-                .isNotEmpty();
-    }
-
-    @Test
-    public void testAddNewCustomer() throws Exception {
+    public void c_testAddNewCustomer() throws Exception {
         newCustomer.setCustName("customer_" + generateRandomExtention(randomStr));
         newCustomer.setPassword("testPass111");
 
@@ -89,7 +68,23 @@ public class TestCoupon {
     }
 
     @Test
-    public void testGetCustomerById() throws Exception {
+    public void d_testGetCompanyById() throws Exception {
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/rest/api/" + "getcompany/" + newCompany.getId(),
+                String.class))
+                .isNotEmpty();
+    }
+
+    @Test
+    public void e_testGetAllCompanies() throws Exception {
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/rest/api/" + "getallcompanies",
+                String.class))
+                .isNotEmpty();
+    }
+
+    @Test
+    public void f_testGetCustomerById() throws Exception {
 
         assertThat(this.restTemplate.getForObject(
                 "http://localhost:" + port + "/rest/api/" + "getcustomer/" + newCustomer.getId(),
@@ -98,7 +93,7 @@ public class TestCoupon {
     }
 
     @Test
-    public void testUpdateCustomer() throws Exception {
+    public void g_testUpdateCustomer() throws Exception {
         newCustomer.setPassword("updatedPass");
 
         assertThat(this.restTemplate.postForObject(
@@ -109,7 +104,7 @@ public class TestCoupon {
     }
 
     @Test
-    public void testGetAllCustomers() throws Exception {
+    public void h_testGetAllCustomers() throws Exception {
         assertThat(this.restTemplate.getForObject(
                 "http://localhost:" + port + "/rest/api/" + "getallcustomers",
                 String.class))

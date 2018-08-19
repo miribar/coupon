@@ -9,4 +9,6 @@
 Dump20180819.sql file, located in the coupon root dir
 
 # Application execution
+- Execute TestCoupon.java from IDE (unfortunately, not all implemented endpoints were included)
+
 
