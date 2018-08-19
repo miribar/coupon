@@ -1,8 +1,11 @@
 package com.miri;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Set;
 
 @Repository
@@ -15,17 +18,16 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
     Set<Customer> getAllCustomers();
 
 
-    default void createCustomer(Customer customer) {
-        this.save(customer);
+    default Customer createCustomer(Customer customer) {
+        return this.save(customer);
     }
 
     default void removeCustomer(Long cust_id) {
         this.deleteById(cust_id);
     }
-    //also remove coupon purchase history for that customer
 
-    default void updateCustomer(Customer customer) {
-        this.save(customer);
+    default Customer updateCustomer(Customer customer) {
+        return this.save(customer);
     }
 
     default void removeCoupon(Long coupon_id) {

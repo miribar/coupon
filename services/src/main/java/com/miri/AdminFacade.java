@@ -37,8 +37,8 @@ public class AdminFacade implements CouponClientFacade {
         return companyDAO.createCompany(company);
     }
 
-    void updateCompany(Company company) {
-        companyDAO.updateCompany(company);
+    Company updateCompany(Company company) {
+        return companyDAO.updateCompany(company);
     }
 
     void removeCompany(Company company) {
@@ -75,12 +75,12 @@ public class AdminFacade implements CouponClientFacade {
         return customerDAO.getAllCustomers();
     }
 
-    void createCustomer(Customer customer) {
-        customerDAO.createCustomer(customer);
+    Customer createCustomer(Customer customer) {
+        return customerDAO.createCustomer(customer);
     }
 
-    void updateCustomer(Customer customer) {
-        customerDAO.updateCustomer(customer);
+    Customer updateCustomer(Customer customer) {
+        return customerDAO.updateCustomer(customer);
     }
 
     void removeCustomer(Long cust_id) {

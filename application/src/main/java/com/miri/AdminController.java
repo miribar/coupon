@@ -31,10 +31,6 @@ public class AdminController {
         return adminService.getCustomer(id);
     }
 
-    /**
-     *
-     * @return Collection of customers
-     */
     @GetMapping("/getallcustomers")
     public Collection<Customer> getCustomer() {
         return adminService.getAllCustomers();
@@ -61,8 +57,13 @@ public class AdminController {
     }
 
     @PostMapping("/updatecompany")
-    public void updateCompany(@RequestBody Company company) {
-        adminService.updateCompany(company);
+    public Company updateCompany(@RequestBody Company company) {
+        return adminService.updateCompany(company);
+    }
+
+    @PostMapping("/updatecustomer")
+    public Customer updateCustomer(@RequestBody Customer customer) {
+        return adminService.updateCustomer(customer);
     }
 
     @GetMapping("/getcompany/{id}")
@@ -80,8 +81,8 @@ public class AdminController {
     }
 
     @PostMapping("/createcustomer")
-    public void createCustomer(@RequestBody Customer customer) {
-        adminService.createCustomer(customer);
+    public Customer createCustomer(@RequestBody Customer customer) {
+        return adminService.createCustomer(customer);
     }
 
 }

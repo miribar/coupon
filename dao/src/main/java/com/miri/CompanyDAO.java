@@ -24,8 +24,8 @@ public interface CompanyDAO extends JpaRepository<Company, Long> {
         return this.saveAndFlush(company);
     }
 
-    default void updateCompany(Company company) {
-        this.save(company);
+    default Company updateCompany(Company company) {
+        return this.save(company);
     }
 
     default void createCoupon(Long comp_id, Coupon coupon) {
