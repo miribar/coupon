@@ -6,12 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Customer")
+@Table(name = "Customer", uniqueConstraints = {@UniqueConstraint(columnNames = {"cust_name"})})
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "cust_name", updatable = false)
     private String custName;
     private String password;
 
