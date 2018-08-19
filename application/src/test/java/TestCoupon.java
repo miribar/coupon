@@ -21,7 +21,8 @@ import static org.testng.Assert.assertNotNull;
 @SpringBootTest(classes = CouponApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestCoupon {
 
-    StringBuilder compName = new StringBuilder();
+    StringBuilder randomStr = new StringBuilder();
+    Company newCompany = new Company();
 
     @LocalServerPort
     private int port;
@@ -40,10 +41,9 @@ public class TestCoupon {
     @Test
     public void testAddNewCompany() throws Exception {
 
-        Company newCompany = new Company();
-        newCompany.setCompName("company_" + generateRandomExtention(compName));
-        newCompany.setEmail("test@email.com");
-        newCompany.setPassword("testPass111");
+        newCompany.setCompName("company_" + generateRandomExtention(randomStr));
+        newCompany.setEmail("test_" + generateRandomExtention(randomStr) + "@email.com");
+        newCompany.setPassword(generateRandomExtention(randomStr));
 
         assertThat(this.restTemplate.postForObject(
                 "http://localhost:" + port + "/rest/api/" + "createcompany",

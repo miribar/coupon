@@ -16,11 +16,9 @@ public class Company {
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "company_coupon",
-            joinColumns = @JoinColumn(name = "comp_id"), // this class
+    @JoinTable(name = "company_coupon", joinColumns = @JoinColumn(name = "comp_id"), // this class
             inverseJoinColumns = @JoinColumn(name = "coupon_id") // the other class
     )
-
     private Set<Coupon> coupons;
 
     public Company() {
@@ -62,11 +60,11 @@ public class Company {
         this.email = email;
     }
 
-    Set<Coupon> getCoupons() {
+    public Set<Coupon> getCoupons() {
         return coupons;
     }
 
-    void setCoupons(Set<Coupon> coupons) {
+    public void setCoupons(Set<Coupon> coupons) {
         this.coupons = coupons;
     }
 

@@ -15,13 +15,13 @@ public interface CompanyDAO extends JpaRepository<Company, Long> {
     Company getCompany(Long id);
 
     @Query("select c from Company c")
-    Collection<Company> getAllCompanies();
+    Set<Company> getAllCompanies();
 
     @Query("select c.coupons from Company c where c.id = ?1")
     Set<Coupon> getCoupons(Long comp_id);
 
     default Company createCompany(Company company) throws ConstraintViolationException {
-        return this.save(company);
+        return this.saveAndFlush(company);
     }
 
     default void updateCompany(Company company) {
