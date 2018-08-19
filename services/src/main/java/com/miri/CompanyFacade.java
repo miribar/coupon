@@ -41,6 +41,10 @@ public class CompanyFacade implements CouponClientFacade {
                     .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    Collection<Coupon> getAllCouponsByCompany(Long comp_id) {
+        return companyDAO.getCoupons(comp_id);
+    }
+
     Collection<Coupon> getCouponsByPriceLimit(Long comp_id, Double price) throws RuntimeException {
         Collection<Coupon> companyCoupons = companyDAO.getCoupons(comp_id);
         return companyCoupons.stream().filter(coupon -> coupon.getPrice() <= price)

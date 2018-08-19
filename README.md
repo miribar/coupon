@@ -1,6 +1,12 @@
 # coupon
-
-3 maven modules:
+4 maven modules:
 - Entities
-- Dao (services)
-- Application (& controller)
+- Dao
+- Application (includes controllers, test app)
+- Services (Facades)
+
+# DB dump
+Dump20180819.sql file, located in the coupon root dir
+
+# Application execution
+
