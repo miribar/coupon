@@ -4,7 +4,6 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +98,7 @@ public class AdminFacade implements CouponClientFacade {
     public void dailyCouponExpirationTask() {
         LOGGER.info("Cron Task :: Execution Time - {}", DATE_TIME_FORMATTER.format(LocalDateTime.now()));
         LocalDate today = LocalDate.now();
-
+//TODO: put following in method to avoid code duplication
         Set<Coupon> expiredCoupons = couponDAO.findByendDateBefore(today);
         Set<Customer> allCustomers = customerDAO.getAllCustomers();
         for (Coupon coupon : expiredCoupons) {

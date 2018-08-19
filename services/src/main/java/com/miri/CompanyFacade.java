@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class CompanyFacade implements CouponClientFacade {

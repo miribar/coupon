@@ -1,7 +1,6 @@
 package com.miri;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.dao.DataIntegrityViolationException;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
