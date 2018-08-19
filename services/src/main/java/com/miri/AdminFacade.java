@@ -63,7 +63,7 @@ public class AdminFacade implements CouponClientFacade {
         return companyDAO.getCompany(id);
     }
 
-    Collection<Company> getAllCompanies() {
+    Set<Company> getAllCompanies() {
         return companyDAO.getAllCompanies();
     }
 
