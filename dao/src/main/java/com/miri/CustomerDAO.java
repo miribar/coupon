@@ -55,5 +55,3 @@ public interface CustomerDAO extends JpaRepository<Customer, Long> {
 //    boolean login(String custName, String password);
 }
 
-//TODO: removeCustomer (with coupons history)
-//TODO: revise getCoupons to return coupons for customer_id
