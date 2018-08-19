@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.util.Random;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.assertNotNull;
 
@@ -23,9 +25,9 @@ import static org.testng.Assert.assertNotNull;
 @SpringBootTest(classes = CouponApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestCoupon {
 
-    private StringBuilder randomStr = new StringBuilder();
-    private Company newCompany = new Company();
-    private Customer newCustomer = new Customer();
+    private final StringBuilder randomStr = new StringBuilder();
+    private final Company newCompany = new Company();
+    private final Customer newCustomer = new Customer();
 
     @LocalServerPort
     private int port;

@@ -1,8 +1,8 @@
 package com.miri;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Collection;
 
 /**
@@ -38,7 +38,6 @@ public class AdminController {
 
     @PostMapping("/createcompany")
     public GeneralResponse createCompany(@RequestBody Company company) {
-        //TODO: add company name input validation
         try {
             return new GeneralResponse(adminService.createCompany(company));
         } catch (Exception e) {
