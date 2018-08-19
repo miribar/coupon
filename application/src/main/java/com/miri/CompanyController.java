@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @CrossOrigin //(origins = "http://domain2.com", maxAge = 3600)
 @RestController                               //For serving REST requests, all responses default format is JSON
@@ -21,6 +22,11 @@ public class CompanyController {
     @GetMapping("/getallcoupons")
     public Collection<Coupon> getAllCouponse() {
         return companyService.getAllCoupons();
+    }
+
+    @GetMapping("/getallcompanycoupons/{comp_id}")
+    public Collection<Coupon> getAllCouponsByCompany(@PathVariable("comp_id") Long comp_id) {
+        return companyService.getAllCouponsByCompany(comp_id);
     }
 
     @GetMapping("/getcouponsbytype/{comp_id}/{type}")

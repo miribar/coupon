@@ -2,8 +2,10 @@ import com.miri.AdminController;
 import com.miri.Company;
 import com.miri.CouponApplication;
 import com.miri.Customer;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -18,6 +20,7 @@ import static org.testng.Assert.assertNotNull;
 /**
  *
  */
+@FixMethodOrder(MethodSorters.DEFAULT)
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CouponApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestCoupon {
@@ -62,16 +65,16 @@ public class TestCoupon {
                 .contains(newCompany.getCompName());
     }
 
-//    @Test
-//    @Assumes("testAddNewCompany")
-//    public void testGetAllCompanies() throws Exception {
-//        assertThat(this.restTemplate.getForObject(
-//                "http://localhost:" + port + "/rest/api/" + "getallcompanies",
-//                String.class))
-//                .isNotEmpty();
-//    }
+    //@Test
+    //TODO: add testUpdateCompany()
 
-
+    @Test
+    public void testGetAllCompanies() throws Exception {
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/rest/api/" + "getallcompanies",
+                String.class))
+                .isNotEmpty();
+    }
 
     @Test
     public void testAddNewCustomer() throws Exception {
@@ -83,14 +86,6 @@ public class TestCoupon {
                 newCustomer,
                 String.class))
                 .contains(newCustomer.getCustName());
-    }
-
-    @Test
-    public void testGetAllCustomers() throws Exception {
-        assertThat(this.restTemplate.getForObject(
-                "http://localhost:" + port + "/rest/api/" + "getallcustomers",
-                String.class))
-                .isNotEmpty();
     }
 
     @Test
@@ -113,6 +108,13 @@ public class TestCoupon {
                 .contains(newCustomer.getPassword());
     }
 
+    @Test
+    public void testGetAllCustomers() throws Exception {
+        assertThat(this.restTemplate.getForObject(
+                "http://localhost:" + port + "/rest/api/" + "getallcustomers",
+                String.class))
+                .isNotEmpty();
+    }
 
     private String generateRandomExtention(StringBuilder compName) {
         String NUMBERS = "1234567890";
