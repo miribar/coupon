@@ -66,7 +66,7 @@ public class CompanyController {
 
     }
 
-    @DeleteMapping("/deletecoupon/{comp_id}/{coupon_id}")
+    @GetMapping("/deletecoupon/{comp_id}/{coupon_id}")
     public void deleteCoupon(@PathVariable("comp_id") Long comp_id, @PathVariable("coupon_id") Long coupon_id) {
         companyService.removeCoupon(comp_id, coupon_id);
     }

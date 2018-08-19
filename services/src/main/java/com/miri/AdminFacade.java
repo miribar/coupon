@@ -33,8 +33,8 @@ public class AdminFacade implements CouponClientFacade {
     public AdminFacade() {
     }
 
-    void createCompany(Company company) throws ConstraintViolationException {
-        companyDAO.createCompany(company);
+    Company createCompany(Company company) throws ConstraintViolationException {
+        return companyDAO.createCompany(company);
     }
 
     void updateCompany(Company company) {

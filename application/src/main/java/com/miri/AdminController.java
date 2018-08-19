@@ -1,6 +1,7 @@
 package com.miri;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
@@ -39,23 +40,22 @@ public class AdminController {
         return adminService.getAllCustomers();
     }
 
-    @PutMapping("/createcompany")
+    @PostMapping("/createcompany")
     public GeneralResponse createCompany(@RequestBody Company company) {
         //TODO: add company name input validation
         try {
-            adminService.createCompany(company);
-            return new GeneralResponse("Company added successfully!");
+            return new GeneralResponse(adminService.createCompany(company));
         } catch (Exception e) {
             return new GeneralResponse(e);
         }
     }
 
-    @DeleteMapping("/deletecompany/{id}")
+    @GetMapping("/deletecompany/{id}")
     public void removeCompany(@PathVariable("id") Long id) {
         adminService.removeCompany(adminService.getCompany(id));
     }
 
-    @DeleteMapping("/deletecustomer/{cust_id}")
+    @GetMapping("/deletecustomer/{cust_id}")
     public void removeCustomer(@PathVariable("cust_id") Long cust_id) {
         adminService.removeCustomer(cust_id);
     }
